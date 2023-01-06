@@ -13,7 +13,7 @@
 
         Task<ListAllUsersResponse> ListAllUsersByDepartmentIdAsync(int departmentId);
 
-        Task<ListAllRunsResponse> ListAllRunsByWorkflowIdAsync(int workflowId, int page);
+        Task<ListAllRunsResponse> ListAllRunsByWorkflowIdAsync(int workflowId, int page = 0);
 
         Task<ListAllRunStepsResponse> ListAllRunStepsByRunIdAsync(int runId);
     }

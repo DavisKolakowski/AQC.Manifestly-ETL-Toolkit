@@ -15,6 +15,7 @@
         public AQCManifestlyDbContext(DbContextOptions<AQCManifestlyDbContext> options)
             : base(options)
         {
+            Database.SetCommandTimeout(0);
         }
 
         public DbSet<Department> Departments { get; set; }

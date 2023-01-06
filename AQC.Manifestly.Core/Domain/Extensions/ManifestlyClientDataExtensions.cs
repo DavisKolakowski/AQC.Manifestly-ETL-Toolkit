@@ -106,16 +106,16 @@
         {
             var data = new List<RunData>();
 
-            var page = 1;
-            var response = await _client.ListAllRunsByWorkflowIdAsync(workflowId, page);
+            var responseBase = await _client.ListAllRunsByWorkflowIdAsync(workflowId);
 
-            if (response != null)
+            if (responseBase != null)
             {
-                var pagingData = response.Meta;
-                if (pagingData != null)
+                if (responseBase.Meta != null)
                 {
-                    for (page = pagingData.CurrentPage; page <= pagingData.TotalPages; page++)
+                    for (int currentPage = responseBase.Meta.CurrentPage; currentPage <= responseBase.Meta.TotalPages; currentPage++)
                     {
+                        var response = await _client.ListAllRunsByWorkflowIdAsync(workflowId, currentPage);
+
                         var runs = response.Runs;
                         if (runs != null)
                         {
@@ -146,12 +146,12 @@
                 }
                 else
                 {
-                    _logger.LogInformation("No {0} data found in: {1}", nameof(pagingData), nameof(response));
+                    _logger.LogInformation("No {0} data found in: {1}", nameof(responseBase.Meta), nameof(responseBase));
                 }
             }
             else
             {
-                _logger.LogError("No data found in: {0}", nameof(response));
+                _logger.LogError("No data found in: {0}", nameof(responseBase));
             }
 
             return data;

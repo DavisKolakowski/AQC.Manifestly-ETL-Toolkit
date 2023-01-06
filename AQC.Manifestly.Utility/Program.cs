@@ -11,6 +11,10 @@
     using Microsoft.Extensions.Logging;
 
     using Serilog;
+    using VaultSharp.V1.AuthMethods.Token;
+    using VaultSharp.V1.AuthMethods;
+    using VaultSharp.V1.Commons;
+    using VaultSharp;
 
     internal class Program
     {

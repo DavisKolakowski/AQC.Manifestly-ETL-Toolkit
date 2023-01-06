@@ -74,11 +74,14 @@
             return response.Data!;
         }
 
-        public async Task<ListAllRunsResponse> ListAllRunsByWorkflowIdAsync(int workflowId, int page)
+        public async Task<ListAllRunsResponse> ListAllRunsByWorkflowIdAsync(int workflowId, int page = 0)
         {
-            var request = new RestRequest("runs")
-              .AddParameter("checklist_id", workflowId)
-              .AddParameter("page", page);
+            var request = new RestRequest("runs");
+                request.AddParameter("checklist_id", workflowId);
+                if (page != 0)
+                {
+                    request.AddParameter("page", page);
+                }
 
             var response = await _client.ExecuteGetAsync<ListAllRunsResponse>(request);
 
